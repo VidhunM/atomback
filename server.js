@@ -4,6 +4,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import blogRoutes from './routes/blogRoutes.js';
 import jobRoutes from './routes/jobRoutes.js';
+import inquiryRoutes from './routes/inquiryRoutes.js';
+import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
@@ -11,9 +15,32 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Static folders
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Multer Config
+const storage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename(req, file, cb) {
+    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+  },
+});
+
+const upload = multer({ storage });
+
+app.post('/api/upload', upload.single('image'), (req, res) => {
+  res.send(`/${req.file.path.replace(/\\/g, '/')}`);
+});
+
 // Routes
 app.use('/api/blogs', blogRoutes);
 app.use('/api/jobs', jobRoutes);
+app.use('/api/inquiries', inquiryRoutes);
 
 // Admin Auth Route
 app.post('/api/admin/login', (req, res) => {
