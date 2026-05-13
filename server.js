@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import blogRoutes from './routes/blogRoutes.js';
 import jobRoutes from './routes/jobRoutes.js';
 import inquiryRoutes from './routes/inquiryRoutes.js';
+import applicationRoutes from './routes/applicationRoutes.js';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -41,6 +42,7 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
 app.use('/api/blogs', blogRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/inquiries', inquiryRoutes);
+app.use('/api/applications', applicationRoutes);
 
 // Admin Auth Route
 app.post('/api/admin/login', (req, res) => {

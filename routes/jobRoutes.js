@@ -23,6 +23,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get a single job by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const job = await Job.findById(req.params.id);
+    if (job) {
+      res.json(job);
+    } else {
+      res.status(404).json({ message: 'Job not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Create a new job
 router.post('/', async (req, res) => {
   const job = new Job(req.body);
