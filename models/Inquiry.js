@@ -14,7 +14,7 @@ const InquirySchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['contact', 'quote'],
+        enum: ['contact', 'quote', 'callback'],
         required: true
     },
     projectType: {
@@ -23,6 +23,11 @@ const InquirySchema = new mongoose.Schema({
     message: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'contacted'],
+        default: 'pending'
     },
     createdAt: {
         type: Date,

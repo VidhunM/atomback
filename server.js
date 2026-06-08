@@ -7,6 +7,8 @@ import jobRoutes from './routes/jobRoutes.js';
 import inquiryRoutes from './routes/inquiryRoutes.js';
 import applicationRoutes from './routes/applicationRoutes.js';
 import settingsRoutes from './routes/settingsRoutes.js';
+import testimonialRoutes from './routes/testimonialRoutes.js';
+import statRoutes from './routes/statRoutes.js';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -45,6 +47,8 @@ app.use('/api/jobs', jobRoutes);
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/testimonials', testimonialRoutes);
+app.use('/api/stats', statRoutes);
 
 // Admin Auth Route
 app.post('/api/admin/login', (req, res) => {
